@@ -120,9 +120,7 @@ function onSubmitTodo(e) {
         if (xhr.status >= 200 && xhr.status <= 299) {
 
             let res = JSON.parse(xhr.response);
-            $(function () {
-                     $('[data-toggle="tooltip"]').tooltip()
-            })
+           
 
             let tr = document.createElement('tr');
             tr.id = res.id;
@@ -164,6 +162,9 @@ function onSubmitTodo(e) {
             });
 
             todoForm.reset();
+             $(function () {
+                     $('[data-toggle="tooltip"]').tooltip()
+            })
 
             snackBar(`New Todo ${new_Todo.userId} Created...`, 'success');
 
