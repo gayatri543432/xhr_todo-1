@@ -19,5 +19,24 @@
     color: #fff;
 }
 body{
-    background-color: rgb(148, 145, 145);
+    background-color: rgb(227, 222, 222);
+}
+
+.fa-pen-to-square,
+.fa-trash{
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.fa-pen-to-square:hover,
+.fa-trash:hover{
+    transform: scale(1.15);
+}
+
+.highlight-row{
+
+    background-color: #fff3cd !important;
+    transition: 1s;
+   
+
 }

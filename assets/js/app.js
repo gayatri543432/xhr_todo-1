@@ -17,7 +17,7 @@ function snackBar(msg, i) {
     Swal.fire({
         title: msg,
         icon: i,
-        timer: 300
+        timer: 3000
     });
 }
 
@@ -41,6 +41,9 @@ function fetchTodos() {
             let res = JSON.parse(xhr.response);
             todosArr = res;
             createTodo([...res].reverse());
+            $(function () {
+                 $('[data-toggle="tooltip"]').tooltip()
+            })
 
         } else {
             snackBar('Failed to fetch todos', 'error');
@@ -58,7 +61,11 @@ function createTodo(arr) {
         result += `
             <tr id="${p.id}">
                 <td>${i + 1}</td>
-                <td>${p.title}</td>
+                <td
+                data-toggle="tooltip"
+                title="${p.title}">
+                ${p.title}
+                 </td>
                 <td>${p.userId}</td>
                 <td>
                     ${p.completed
@@ -68,10 +75,14 @@ function createTodo(arr) {
                 </td>
                 <td>
                     <i class="fa-regular fa-pen-to-square fa-2x text-primary"
+                     data-toggle="tooltip"
+                    title="Edit Todo"
                     onclick="OnEdit(this)"></i>
                 </td>
                 <td>
                     <i class="fa-solid fa-trash fa-2x text-danger"
+                     data-toggle="tooltip"
+                    title="Remove Todo"
                     onclick="onRemove(this)"></i>
                 </td>
             </tr>
@@ -109,13 +120,20 @@ function onSubmitTodo(e) {
         if (xhr.status >= 200 && xhr.status <= 299) {
 
             let res = JSON.parse(xhr.response);
+            $(function () {
+                     $('[data-toggle="tooltip"]').tooltip()
+            })
 
             let tr = document.createElement('tr');
             tr.id = res.id;
 
             tr.innerHTML = `
                 <td>${todosContainer.children.length + 1}</td>
-                <td>${new_Todo.title}</td>
+                <td
+                data-toggle="tooltip"
+                title="${p.title}">
+                ${p.title}
+                 </td>
                 <td>${new_Todo.userId}</td>
                 <td>
                     ${new_Todo.completed
@@ -124,11 +142,15 @@ function onSubmitTodo(e) {
                     }
                 </td>
                 <td>
-                    <i class="fa-regular fa-pen-to-square fa-2x text-primary"
+                    <i class="fa-regular fa-pen-to-square fa-2x text-primary" 
+                    data-toggle="tooltip"
+                    title="Edit Todo"
                     onclick="OnEdit(this)"></i>
                 </td>
                 <td>
                     <i class="fa-solid fa-trash fa-2x text-danger"
+                    data-toggle="tooltip"
+                    title="Remove Todo"
                     onclick="onRemove(this)"></i>
                 </td>
             `;
@@ -143,7 +165,7 @@ function onSubmitTodo(e) {
 
             todoForm.reset();
 
-            snackBar('New Todo Created...', 'success');
+            snackBar(`New Todo ${new_Todo.userId} Created...`, 'success');
 
         } else {
             snackBar('Failed to create todo', 'error');
@@ -188,7 +210,7 @@ function onRemove(ele) {
                         row.children[0].textContent = index + 1;
                     });
 
-                    snackBar('Todo Deleted...', 'success');
+                    snackBar(`Todo ${REMOVE_ID} Deleted...`, 'success');
 
                 } else {
                     snackBar('Failed to remove todo', 'error');
@@ -226,6 +248,12 @@ function OnEdit(ele) {
 
             addTodoBtn.classList.add('d-none');
             updateTodoBtn.classList.remove('d-none');
+
+
+            todoForm.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
 
         } else {
             snackBar('Failed to fetch todo', 'error');
@@ -277,9 +305,20 @@ function onUpdateTodo() {
             addTodoBtn.classList.remove('d-none');
             updateTodoBtn.classList.add('d-none');
 
-            localStorage.removeItem('Edit_ID');
 
-            snackBar('Todo Updated Successfully...', 'success');
+            let updatedRow = document.getElementById(UPDATED_ID);
+
+            updatedRow.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            updatedRow.classList.add('highlight-row');
+                        
+            setTimeout(() => {
+                updatedRow.classList.remove('highlight-row');
+            }, 2000);
+            snackBar(`Todo ${UPDATED_ID} Updated Successfully...`, 'success');
 
         } else {
             snackBar('Failed to update todo', 'error');
