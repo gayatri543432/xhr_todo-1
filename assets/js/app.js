@@ -131,8 +131,8 @@ function onSubmitTodo(e) {
                 <td>${todosContainer.children.length + 1}</td>
                 <td
                 data-toggle="tooltip"
-                title="${p.title}">
-                ${p.title}
+                title="${new_Todo.title}">
+                ${new_Todo.title}
                  </td>
                 <td>${new_Todo.userId}</td>
                 <td>
@@ -318,6 +318,8 @@ function onUpdateTodo() {
             setTimeout(() => {
                 updatedRow.classList.remove('highlight-row');
             }, 2000);
+
+            localStorage.removeItem('Edit_ID');
             snackBar(`Todo ${UPDATED_ID} Updated Successfully...`, 'success');
 
         } else {
