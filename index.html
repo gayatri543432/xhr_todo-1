@@ -17,11 +17,11 @@
                         <form action="" id="todoForm">
                             <div class="form-group">
                                 <label for="title">Title*</label>
-                                <input type="text" class="form-control" id="title">
+                                <input type="text" class="form-control" id="title" required>
                             </div>
                             <div class="form-group">
                                 <label for="completed">Status*</label>
-                                <select class="form-control" id="completed">
+                                <select class="form-control" id="completed" required                >
                                     <option value="true">Completed</option>
                                     <option value="false">Pending</option>
 
@@ -67,14 +67,7 @@
                                 </tr>
                             </thead>
                             <tbody id="todosContainer">
-                                <!-- <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr> -->
+                               
                             </tbody>
                         </table>
                     </div>

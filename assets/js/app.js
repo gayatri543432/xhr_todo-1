@@ -301,11 +301,14 @@ function onUpdateTodo() {
                 ? '<span class="badge badge-success">Completed</span>'
                 : '<span class="badge badge-warning">Pending</span>';
 
+            tr[1].innerText = updated_obj.title;
+            tr[1].setAttribute('title', updated_obj.title);
+
+            $(tr[1]).tooltip('dispose').tooltip();
             todoForm.reset();
 
             addTodoBtn.classList.remove('d-none');
             updateTodoBtn.classList.add('d-none');
-
 
             let updatedRow = document.getElementById(UPDATED_ID);
 
